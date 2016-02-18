@@ -6,22 +6,20 @@
 var options = {
 	idx:		[ ],			// Init IDX Array
 	request		: false,		// Required for MQTT
-	ptz		: true,			// PTZ PowerMate Functions
 	host		: 'localhost',		// MQTT Broker Host
         status		: 'ipcc/connected',	// MQTT Status Path
 	log		: false,		// Extra Debug Logging
-	syslog		: true,			// Log to Syslog
+	syslog		: false,		// Log to Syslog
 };
 
-// Dahua IP Cameras - NAME : [HOST,PORT,USERNAME,PASSWORD]
-var dahuaCameras = {
-	WestPTZ		: [ 'west-ptz'	,80	,'ptz'		,'ptz' ]
-	NorthIPC	: [ 'north-ptc'	,80	,'admin'	,'dreadlocks' ]
-	SouthIPC	: [ 'south-ipc'	,80	,'admin'	,'dreadlocks' ]
-	EastIPC		: [ 'east-ipc'	,80	,'admin'	,'dreadlocks' ]
+// Dahua IP Cameras - NAME : [HOST,PORT,USERNAME,PASSWORD,MD IDX,TAMPER IDX,INPUT #1 IDX, INPUT #2 IDX]
+var dahuaIPC = {
+	WestPTZ		: [ 'west-ptz'	,80	,'admin'	,'pass'		,214	,218	,212	,213 ],
+	NorthIPC	: [ 'north-ptc'	,80	,'admin'	,'pass'		,215	,219 ],
+	SouthIPC	: [ 'south-ipc'	,80	,'admin'	,'pass'		,216	,220 ],
+	EastIPC		: [ 'east-ipc'	,80	,'admin'	,'pass'		,217	,221 ],
 };
 // END CONFIG
 
 exports.options = options
-exports.dahuaCameras = dahuaCameras
-
+exports.dahuaIPC = dahuaIPC
