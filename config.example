@@ -1,0 +1,27 @@
+// DOMOTICZ-IPCC Example Configuration
+// rename to config.js
+// All Configuration options are made here
+
+// BEGIN CONFIG
+var options = {
+	idx:		[ ],			// Init IDX Array
+	request		: false,		// Required for MQTT
+	ptz		: true,			// PTZ PowerMate Functions
+	host		: 'localhost',		// MQTT Broker Host
+        status		: 'ipcc/connected',	// MQTT Status Path
+	log		: false,		// Extra Debug Logging
+	syslog		: true,			// Log to Syslog
+};
+
+// Dahua IP Cameras - NAME : [HOST,PORT,USERNAME,PASSWORD]
+var dahuaCameras = {
+	WestPTZ		: [ 'west-ptz'	,80	,'ptz'		,'ptz' ]
+	NorthIPC	: [ 'north-ptc'	,80	,'admin'	,'dreadlocks' ]
+	SouthIPC	: [ 'south-ipc'	,80	,'admin'	,'dreadlocks' ]
+	EastIPC		: [ 'east-ipc'	,80	,'admin'	,'dreadlocks' ]
+};
+// END CONFIG
+
+exports.options = options
+exports.dahuaCameras = dahuaCameras
+

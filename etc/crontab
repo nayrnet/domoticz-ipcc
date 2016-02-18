@@ -1,0 +1,2 @@
+# append this to your existing crontab if you dont use systemd
+*/5 * * * * ~/ipcc/daemon.js start

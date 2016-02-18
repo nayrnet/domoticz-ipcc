@@ -1,0 +1,20 @@
+[Unit]
+Description=IPCamera Controller
+
+[Service]
+Type=forking
+PIDFile=/home/domoticz/ipcc/ipcc.pid
+ExecStart=/usr/bin/nodejs daemon.js start
+ExecStop=/usr/bin/nodejs daemon.js stop
+Restart=always
+RestartSec=120
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ipcc
+User=domoticz
+Group=domoticz
+Environment=NODE_ENV=production
+WorkingDirectory=/home/domoticz/ipcc/
+
+[Install]
+WantedBy=multi-user.target

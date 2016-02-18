@@ -1,0 +1,11 @@
+Log using Syslog to /var/log/htc.log
+
+1. copy ipc.conf to /etc/rsyslog.d
+2. edit /etc/rsyslog.conf
+3. uncomment:
+  # provides UDP syslog reception
+  $ModLoad imudp
+  $UDPServerRun 514
+
+4. restart rsyslog (service restart rsyslog)
+5. enable syslog = true in config.js

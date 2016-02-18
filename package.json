@@ -1,0 +1,38 @@
+{
+  "name": "domoticz-ipcc",
+  "version": "1.0.0",
+  "description": "Domoticz IPCamera Controller",
+  "main": "server.js",
+  "dependencies": {
+    "mqtt": "^1.6.3",
+    "events": "^1.1.0",
+    "node-domoticz-mqtt": "^1.2.1",
+    "ain2": "^1.5.3",
+    "daemonize2": "^0.4.2",
+    "serialport": "^2.0.6",
+    "util": "^0.10.3",
+    "request": "^2.67.0",
+    "net": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo 0",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nayrnet/domoticz-ipcc.git"
+  },
+  "keywords": [
+    "Pioneer",
+    "Sharp",
+    "Aquos",
+    "Domoticz"
+  ],
+  "author": "Ryan Hunt",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nayrnet/domoticz-htc/issues"
+  },
+  "homepage": "https://github.com/nayrnet/domoticz-ipcc#readme"
+}
