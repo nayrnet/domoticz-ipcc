@@ -48,13 +48,15 @@ function initCams () {
 dahua.on('alarm', function(name, id, code, action, index) {
 	if (code === 'VideoMotion' && action === 'Start') {
 		if (TRACE)	console.log(name + ' Video Motion Detected');
+		domoticz.log('[IPCC] ' + name + ' Video Motion Detected')
 		domoticz.switch(dahuaIPC[name][4],255)
 	} else if (code === 'VideoMotion' && action === 'Stop') {
 		if (TRACE)	console.log(name + ' Video Motion Ended');
 		domoticz.switch(dahuaIPC[name][4],0)
 	} else if (code === 'AlarmLocal' && action === 'Start') {
 		if (TRACE)	console.log(name + ' Local Alarm Triggered: ' + index);
-		var alarm	= 6 + index;
+		domoticz.log('[IPCC] ' + name + ' Local Alarm Triggered: ' + index)
+		var alarm	= 6 + parseInt(index);
 		domoticz.switch(dahuaIPC[name][alarm],255)
 	} else if (code === 'AlarmLocal' && action === 'Stop') {
 		if (TRACE)	console.log(name + ' Local Alarm Ended: ' + index);
@@ -62,12 +64,14 @@ dahua.on('alarm', function(name, id, code, action, index) {
 		domoticz.switch(dahuaIPC[name][alarm],0)
 	} else if (code === 'VideoLoss' && action === 'Start') {
 		if (TRACE)	console.log(name + ' Video Lost!');
+		domoticz.log('[IPCC] ' + name + ' Video Lost!')
 		domoticz.switch(dahuaIPC[name][5],255)
 	} else if (code === 'VideoLoss' && action === 'Stop') {
 		if (TRACE)	console.log(name + ' Video Found!');
 		domoticz.switch(dahuaIPC[name][5],0)
 	} else if (code === 'VideoBlind' && action === 'Start') {
 		if (TRACE)	console.log(name + ' Video Blind!');
+		domoticz.log('[IPCC] ' + name + ' Video Blind!')
 		domoticz.switch(dahuaIPC[name][5],255)
 	} else if (code === 'VideoBlind' && action === 'Stop') {
 		if (TRACE)	console.log(name + ' Video Unblind!');
@@ -98,7 +102,7 @@ process.on( "SIGINT", function() {
 	domoticz.log("[IPCC] IP Camera Controller disconnected.")
         setTimeout(function() {
 		process.exit()
-        }, 500);
+        }, 1000);
 });
 
 // Initalize Cameras
