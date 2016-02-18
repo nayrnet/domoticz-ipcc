@@ -4,8 +4,8 @@
 
 // BEGIN CONFIG
 var options = {
-	idx 		: [ ],			// Init IDX Array
-	request		: false,		// Required for MQTT
+	nightSwitch	: false,		// IDX for Domoticz Swiitch to toggle Night/Day.
+	idx 		: [ ],			// Init IDX Array, dont touch
 	host		: 'localhost',		// MQTT Broker Host
         status		: 'ipcc/connected',	// MQTT Status Path
 	log		: false,		// Extra Debug Logging
