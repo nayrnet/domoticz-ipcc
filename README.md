@@ -26,5 +26,9 @@ It connects with Domoticz via the MQTT JSON API, and your Dahua IPC via HTTP API
 * AndroidTV OSD Remote - https://github.com/nayrnet/androidtv-osd-remote
 * Mosquitto MQTT Broker
 
+### Web Screenshot:
+Domoticz Devices:
+![Domoticz Devices](screenshots/domoticz-devices.png)
+
 #### Support:
 > No support provided or warranty impied, this project is avilable for educational use and my own personal tracking.
