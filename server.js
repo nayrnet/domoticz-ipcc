@@ -60,7 +60,7 @@ dahua.on('alarm', function(name, id, code, action, index) {
 		domoticz.switch(dahuaIPC[name][alarm],255)
 	} else if (code === 'AlarmLocal' && action === 'Stop') {
 		if (TRACE)	console.log(name + ' Local Alarm Ended: ' + index);
-		var alarm	= 6 + index;
+		var alarm	= 6 + parseInt(index);
 		domoticz.switch(dahuaIPC[name][alarm],0)
 	} else if (code === 'VideoLoss' && action === 'Start') {
 		if (TRACE)	console.log(name + ' Video Lost!');
