@@ -13,9 +13,9 @@ It connects with Domoticz via the MQTT JSON API, and your Dahua IPC via HTTP API
 
 ### Features:
 * Instant binary input from:
-** Video Motion Detector
-** Alarm Inputs (Dry Contacts)
-** Video Blank
+ * Video Motion Detector
+ * Alarm Inputs (Dry Contacts)
+ * Video Blank
 * Selector Switches for PTZ Presets
 * Switch between Day/Night Mode via Domoticz UserVariable
 
