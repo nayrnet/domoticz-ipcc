@@ -76,13 +76,13 @@ dahua.on('alarm', function(name, id, code, action, index) {
 		var alarm	= 6 + index;
 		var idx		= dahuaIPC[name][alarm];
 		if (options.contactSwitch.indexOf(idx) > -1) { domoticz.switchOC(idx,1) } else { domoticz.switch(idx,255) }
-		mqtt.publish('ipcc/' + name + '/AlarmLocal', 'true');
+		mqtt.publish('ipcc/' + name + '/AlarmLocal/' + (index+1), 'true');
 	} else if (code === 'AlarmLocal' && action === 'Stop') {		// Alarm Local Stop
 		if (TRACE)	console.log(name + ': Local Alarm Ended (' + (index+1) + ')');
 		var alarm	= 6 + index;
 		var idx		= dahuaIPC[name][alarm];
 		if (options.contactSwitch.indexOf(idx) > -1) { domoticz.switchOC(idx,0) } else { domoticz.switch(idx,0) }
-		mqtt.publish('ipcc/' + name + '/AlarmLocal', 'false');
+		mqtt.publish('ipcc/' + name + '/AlarmLocal/' + (index+1), 'false');
 	} else if (code === 'VideoLoss' && action === 'Start') {		// Video Lost
 		if (TRACE)	console.log(name + ': Video Lost!');
 		domoticz.log('[IPCC] ' + name + ': Video Lost!')

@@ -48,11 +48,15 @@ nano config.js
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
 
 ### Raw Status via MQTT
-Boolean (true/false) values are published to the following locations:
-* ipcc/CameraName/VideoMotion 		Video motion Detection
-* ipcc/CameraName/AlarmLocal/id		Local Alarm IO
-* ipcc/CameraName/VideoLoss		Video Error
-* ipcc/CameraName/VideoBlind		Blank Screen
+Raw values are published to the following locations:
+* ipcc/CameraName/VideoMotion 		
+ * true/false - Video motion Detection
+* ipcc/CameraName/AlarmLocal/id
+ * true/false - Local Alarm IO
+* ipcc/CameraName/VideoLoss
+ * true/false - Video Errors
+* ipcc/CameraName/VideoBlind
+ * true/false - Blank Screen
 
 ### Domoticz Screenshot:
 Domoticz Devices:
