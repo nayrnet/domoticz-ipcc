@@ -28,8 +28,8 @@ var 	dahuaNames	= Object.keys(dahuaIPC)
 
 // Init Alarm Listeners
 function initCams () {
-	var i = Object.keys(dahuaIPC);
-	i.forEach(function(id){
+	var dahuas = Object.keys(dahuaIPC);
+	dahuas.forEach(function(id){
 		var opts = {}
 		opts.host = dahuaIPC[id][0]
 		opts.port = dahuaIPC[id][1]
@@ -38,7 +38,7 @@ function initCams () {
 		ipc[id] = new ipcamera.dahua(opts);
 
 		ipc[id].on('alarm', function(code,action,index) {
-			dahua.emit('alarm', id, i, code, action, parseInt(index))
+			dahua.emit('alarm', id, dahuas, code, action, parseInt(index))
 		});
 		ipc[id].on('end', function() {
 			console.log(id + ': connection closed')		
