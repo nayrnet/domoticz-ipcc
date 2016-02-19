@@ -1,22 +1,24 @@
-# Domoticz IP Camera Controller
+# IP Camera Controller for Home Automation
 [![GPL-3.0](https://img.shields.io/badge/license-GPL-blue.svg)]()
 [![npm](https://img.shields.io/npm/v/npm.svg)]()
 [![node](https://img.shields.io/node/v/gh-badges.svg)]()
 
-This is a NodeJS service interfaces with IP Cameras and Domoticz, right now it only supports only Dahua cameras.
+This is a NodeJS service interfaces with IP Cameras, MQTT and Domoticz, right now it only supports only Dahua cameras.
 
-Goal: Turn your Security Cameras into Domoticz Motion Detectors, also expose any of the Cam's local Alarm IO to Domoticz.
+Goal: Turn your Security Cameras into Home Automation Motion Detectors, also expose any of the Cam's local Alarm IO to your Home Automation System.
 
-It connects with Domoticz via the MQTT JSON API, and your Dahua IPC via HTTP API
+It connects with Domoticz via the MQTT JSON API, and your Dahua IPC via HTTP API Alarm Stream.. It also publishes raw states via MQTT for integration with other automation software.
 
 ### Features:
 * Instant binary input from:
  * Video Motion Detector
  * Alarm Inputs (Dry Contacts)
  * Video Blank / Video Loss
-* Selector Switches for PTZ Presets
+* Domoticz: Selector Switches for PTZ Presets
 * Switch between Day/Night Mode
 * Switch External Output
+* Publishes Domoticz JSON via MQTT
+* Publishes Raw Values via MQTT @ ipcc/CameraName
 
 ### Software:
 * IPC Controller - ME!
@@ -45,7 +47,14 @@ nano config.js
 ```
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
 
-### Web Screenshot:
+### Raw Status via MQTT
+Boolean (true/false) values are published to the following locations:
+* ipcc/CameraName/VideoMotion 		Video motion Detection
+* ipcc/CameraName/AlarmLocal/id		Local Alarm IO
+* ipcc/CameraName/VideoLoss		Video Error
+* ipcc/CameraName/VideoBlind		Blank Screen
+
+### Domoticz Screenshot:
 Domoticz Devices:
 ![Domoticz Devices](screenshots/domoticz-devices.png)
 

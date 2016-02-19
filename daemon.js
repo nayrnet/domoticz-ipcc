@@ -3,7 +3,7 @@
 
 var daemon = require("daemonize2").setup({
 	main: "server.js",
-	name: "domoticz-ipcc",
+	name: "ipcc",
 	pidfile: "ipcc.pid"
 });
 

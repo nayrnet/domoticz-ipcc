@@ -5,12 +5,16 @@
 // Load Configuration
 var	options		= require('./config').options;
 var	dahuaIPC	= require('./config').dahuaIPC;
+var	hikvisionIPC	= require('./config').hikvisionIPC;
 
 // Load Modules
-var     ipcamera	= require('node-dahua-api');
-var	mqtt            = require('node-domoticz-mqtt');
-var 	domoticz 	= new mqtt.domoticz(options);
+var     dahuaAPI	= require('node-dahua-api');
+var	mqttDomo 	= require('node-domoticz-mqtt');
+var	mqttClient	= require('mqtt');
+var	mqtt 		= mqttClient.connect(options);
+var 	domoticz 	= new mqttDomo.domoticz(options);
 var 	EventEmitter 	= require('events').EventEmitter;
+
 
 if (options.syslog) {
 	var 	SysLogger 	= require('ain2');
@@ -25,6 +29,8 @@ var	TRACE		= true;
 var	ipc		= {};
 var	dahua		= new EventEmitter();
 var 	dahuaNames	= Object.keys(dahuaIPC)
+var	hik		= new EventEmitter();
+var 	hikNames	= Object.keys(hikvisionIPC)
 
 // Init Alarm Listeners
 function initCams () {
@@ -35,7 +41,7 @@ function initCams () {
 		opts.port = dahuaIPC[id][1]
 		opts.user = dahuaIPC[id][2]
 		opts.pass = dahuaIPC[id][3]
-		ipc[id] = new ipcamera.dahua(opts);
+		ipc[id] = new dahuaAPI.dahua(opts);
 
 		ipc[id].on('alarm', function(code,action,index) {
 			dahua.emit('alarm', id, dahuas, code, action, parseInt(index))
@@ -55,38 +61,46 @@ function initCams () {
 
 // dahua: alarm
 dahua.on('alarm', function(name, id, code, action, index) {
-	if (code === 'VideoMotion' && action === 'Start') {
+	if (code === 'VideoMotion' && action === 'Start') {			// Video Motion Start
 		if (TRACE)	console.log(name + ': Video Motion Detected');
 		domoticz.log('[IPCC] ' + name + ': Video Motion Detected')
 		domoticz.switch(dahuaIPC[name][4],255)
-	} else if (code === 'VideoMotion' && action === 'Stop') {
+		mqtt.publish('ipcc/' + name + '/VideoMotion', 'true');
+	} else if (code === 'VideoMotion' && action === 'Stop') {		// Video Motion Stop
 		if (TRACE)	console.log(name + ': Video Motion Ended');
 		domoticz.switch(dahuaIPC[name][4],0)
-	} else if (code === 'AlarmLocal' && action === 'Start') {
+		mqtt.publish('ipcc/' + name + '/VideoMotion', 'false');
+	} else if (code === 'AlarmLocal' && action === 'Start') {		// Alarm Local Start
 		if (TRACE)	console.log(name + ': Local Alarm Triggered (' + (index+1) + ')');
 		domoticz.log('[IPCC] ' + name + ': Local Alarm Triggered (' + (index+1) + ')')
 		var alarm	= 6 + index;
 		var idx		= dahuaIPC[name][alarm];
 		if (options.contactSwitch.indexOf(idx) > -1) { domoticz.switchOC(idx,1) } else { domoticz.switch(idx,255) }
-	} else if (code === 'AlarmLocal' && action === 'Stop') {
+		mqtt.publish('ipcc/' + name + '/AlarmLocal', 'true');
+	} else if (code === 'AlarmLocal' && action === 'Stop') {		// Alarm Local Stop
 		if (TRACE)	console.log(name + ': Local Alarm Ended (' + (index+1) + ')');
 		var alarm	= 6 + index;
 		var idx		= dahuaIPC[name][alarm];
 		if (options.contactSwitch.indexOf(idx) > -1) { domoticz.switchOC(idx,0) } else { domoticz.switch(idx,0) }
-	} else if (code === 'VideoLoss' && action === 'Start') {
+		mqtt.publish('ipcc/' + name + '/AlarmLocal', 'false');
+	} else if (code === 'VideoLoss' && action === 'Start') {		// Video Lost
 		if (TRACE)	console.log(name + ': Video Lost!');
 		domoticz.log('[IPCC] ' + name + ': Video Lost!')
 		domoticz.switch(dahuaIPC[name][5],255)
-	} else if (code === 'VideoLoss' && action === 'Stop') {
+		mqtt.publish('ipcc/' + name + '/VideoLoss', 'true');
+	} else if (code === 'VideoLoss' && action === 'Stop') {			// Video Found
 		if (TRACE)	console.log(name + ': Video Found');
 		domoticz.switch(dahuaIPC[name][5],0)
-	} else if (code === 'VideoBlind' && action === 'Start') {
+		mqtt.publish('ipcc/' + name + '/VideoLoss', 'false');
+	} else if (code === 'VideoBlind' && action === 'Start') {		// Video Blind
 		if (TRACE)	console.log(name + ': Video Blind!');
 		domoticz.log('[IPCC] ' + name + ': Video Blind!')
 		domoticz.switch(dahuaIPC[name][5],255)
-	} else if (code === 'VideoBlind' && action === 'Stop') {
+		mqtt.publish('ipcc/' + name + '/VideoBlind', 'true');
+	} else if (code === 'VideoBlind' && action === 'Stop') {		// Video Unblind
 		if (TRACE)	console.log(name + ': Video Unblind');
 		domoticz.switch(dahuaIPC[name][5],0)
+		mqtt.publish('ipcc/' + name + '/VideoBlind', 'false');
 	}
 });
 
