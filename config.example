@@ -5,6 +5,7 @@
 // BEGIN CONFIG
 var options = {
 	nightSwitch	: false,		// IDX for Domoticz Swiitch to toggle Night/Day.
+	contactSwitch	: [ 213 ],		// IDX for Input Contact Switches (default: Motion Detectors)
 	idx 		: [ ],			// Init IDX Array, dont touch
 	host		: 'localhost',		// MQTT Broker Host
         status		: 'ipcc/connected',	// MQTT Status Path
