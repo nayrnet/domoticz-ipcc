@@ -64,7 +64,7 @@ Raw values are published to the following locations:
  * true/false - Blank Screen
 
 ###  MQTT Publishes
-IPCC is subscripted to the following locations and will instruct your camera approprately.
+IPCC is subscribed to the following locations, incoming data will be sent to you camera.
 * ipcc/CameraName/NightProfile
  * send true to enable night profile
 * ipcc/CameraName/DayProfile
@@ -83,6 +83,7 @@ Domoticz Devices:
 * PTZ Selector Switch
 * External Output
 * Day/Night Switch
+* Input data via MQTT
 
 #### Support:
 > No support provided or warranty impied, this project is avilable for educational use and my own personal tracking.
