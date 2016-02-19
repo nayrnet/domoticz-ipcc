@@ -50,18 +50,30 @@ nano config.js
 ```
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
 
-### Raw Status via MQTT
+###  MQTT Subscriptions
 Raw values are published to the following locations:
-* ipcc/connected 		
+* ipcc/connected
  * true/false - IPCC Presence
 * ipcc/CameraName/VideoMotion 		
  * true/false - Video motion Detection
 * ipcc/CameraName/AlarmLocal/id
- * true/false - Local Alarm IO
+ * true/false - Local Alarm IO, id is usually 1 or 2
 * ipcc/CameraName/VideoLoss
  * true/false - Video Errors
 * ipcc/CameraName/VideoBlind
  * true/false - Blank Screen
+
+###  MQTT Publishes
+IPCC is subscripted to the following locations and will instruct your camera approprately.
+* ipcc/CameraName/NightProfile
+ * send true to enable night profile
+* ipcc/CameraName/DayProfile
+ * send true to enable day profile
+* ipcc/CameraName/AlarmOutput/id
+ * true/false - Local Alarm IO, id is usually 1 or 2
+* ipcc/CameraName/GoToPreset
+ * interger - PTZ Command go to Preset
+
 
 ### Domoticz Screenshot:
 Domoticz Devices:
