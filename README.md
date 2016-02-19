@@ -43,7 +43,7 @@ cp config.example config.js
 nano config.js
 // Edit aproprately, save.
 ```
-9. See the ipcc/etc folder for system init scripts and optional syslogd support.
+> See the ipcc/etc folder for system init scripts and optional syslogd support.
 
 ### Web Screenshot:
 Domoticz Devices:
