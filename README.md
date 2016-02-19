@@ -26,7 +26,7 @@ It connects with Domoticz via the MQTT JSON API, and your Dahua IPC via HTTP API
 * Debian Jessie w/NodeJS from NodeSource repository
 * Mosquitto MQTT Broker
 
-### Install:
+### Domoticz Setup:
 > presumes debian based linux and working domoticz, git, nodejs and npm.
 
 1. Install MQTT Broker (apt-get install mosquitto)
@@ -36,7 +36,9 @@ It connects with Domoticz via the MQTT JSON API, and your Dahua IPC via HTTP API
 5. Add Dummy Switches for each Camera's Tamper Features, set as: Motion Sensors.
 6. Add Dummy Switches for each Camera's Alarm Inputs, set as: Motion Sensors/Contact Switches.
 7. Get Switch IDX from Domoticz and Configure HTC to match (Setup -> Devices -> Search)
-8. Download and Configure with:
+8. Download and Configure
+
+### Install:
 ```bash
 git clone https://github.com/nayrnet/domoticz-ipcc.git ipcc
 cd ipcc
@@ -44,6 +46,7 @@ npm install
 cp config.example config.js
 nano config.js
 // Edit aproprately, save.
+./daemon.js start
 ```
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
 
