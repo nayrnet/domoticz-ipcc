@@ -6,7 +6,7 @@
   "dependencies": {
     "mqtt": "^1.6.3",
     "events": "^1.1.0",
-    "node-domoticz-mqtt": "^1.2.1",
+    "node-domoticz-mqtt": "^1.2.2",
     "ain2": "^1.5.3",
     "daemonize2": "^0.4.2",
     "util": "^0.10.3",
