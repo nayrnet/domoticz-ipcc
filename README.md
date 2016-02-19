@@ -49,6 +49,8 @@ nano config.js
 
 ### Raw Status via MQTT
 Raw values are published to the following locations:
+* ipcc/connected 		
+ * true/false - IPCC Presence
 * ipcc/CameraName/VideoMotion 		
  * true/false - Video motion Detection
 * ipcc/CameraName/AlarmLocal/id
