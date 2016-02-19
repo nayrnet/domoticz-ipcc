@@ -45,7 +45,7 @@ cd ipcc
 npm install
 cp config.example config.js
 nano config.js
-// Edit aproprately, save.
+# Edit aproprately, save.
 ./daemon.js start
 ```
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
