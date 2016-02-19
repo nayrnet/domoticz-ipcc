@@ -34,7 +34,7 @@ It connects with Domoticz via the MQTT JSON API, and your Dahua IPC via HTTP API
 5. Add Dummy Switches for each Camera's Tamper Features, set as: Motion Sensors.
 6. Add Dummy Switches for each Camera's Alarm Inputs, set as: Motion Sensors/Contact Switches.
 7. Get Switch IDX from Domoticz and Configure HTC to match (Setup -> Devices -> Search)
-  * Download and Configure with:
+8. Download and Configure with:
 ```bash
 git clone https://github.com/nayrnet/domoticz-ipcc.git ipcc
 cd ipcc
@@ -43,6 +43,7 @@ cp config.example config.js
 nano config.js
 // Edit aproprately, save.
 ```
+9. See the ipcc/etc folder for system init scripts and optional syslogd support.
 
 ### Web Screenshot:
 Domoticz Devices:
