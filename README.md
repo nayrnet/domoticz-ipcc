@@ -50,7 +50,7 @@ nano config.js
 ```
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
 
-###  MQTT Subscriptions
+###  IPCC MQTT Publishes
 Raw values are published to the following locations:
 * ipcc/connected
  * true/false - IPCC Presence
@@ -63,13 +63,13 @@ Raw values are published to the following locations:
 * ipcc/CameraName/VideoBlind
  * true/false - Blank Screen
 
-###  MQTT Publishes
+###  IPCC MQTT Subscriptions
 IPCC is subscribed to the following locations, incoming data will be sent to you camera.
 * ipcc/CameraName/NightProfile
  * send true to enable night profile
 * ipcc/CameraName/DayProfile
  * send true to enable day profile
-* ipcc/CameraName/AlarmOutput/id
+* ipcc/CameraName/AlarmOutput
  * true/false - Local Alarm IO, id is usually 1 or 2
 * ipcc/CameraName/GoToPreset
  * interger - PTZ Command go to Preset

@@ -50,7 +50,7 @@ function initCams () {
 			console.log(id + ': connection closed')		
 		});
 		ipc[id].on('connect', function() {
-			console.log(id + ': connected')		
+			console.log(id + ': connected')	
 		});
 		ipc[id].on('error', function(err) {
 			console.log(id + ' ' + err)		
@@ -62,13 +62,15 @@ function initCams () {
 // dahua: alarm
 dahua.on('alarm', function(name, id, code, action, index) {
 	if (code === 'VideoMotion' && action === 'Start') {			// Video Motion Start
+		var idx = dahuaIPC[name][4];
 		if (TRACE)	console.log(name + ': Video Motion Detected');
+		if (idx)	domoticz.switch(idx,255);
 		domoticz.log('[IPCC] ' + name + ': Video Motion Detected')
-		domoticz.switch(dahuaIPC[name][4],255)
 		mqtt.publish('ipcc/' + name + '/VideoMotion', 'true');
 	} else if (code === 'VideoMotion' && action === 'Stop') {		// Video Motion Stop
+		var idx = dahuaIPC[name][4];
 		if (TRACE)	console.log(name + ': Video Motion Ended');
-		domoticz.switch(dahuaIPC[name][4],0)
+		if (idx)	domoticz.switch(idx,0);
 		mqtt.publish('ipcc/' + name + '/VideoMotion', 'false');
 	} else if (code === 'AlarmLocal' && action === 'Start') {		// Alarm Local Start
 		if (TRACE)	console.log(name + ': Local Alarm Triggered (' + (index+1) + ')');
@@ -76,34 +78,58 @@ dahua.on('alarm', function(name, id, code, action, index) {
 		var alarm	= 6 + index;
 		var idx		= dahuaIPC[name][alarm];
 		console.log(options.contactSwitch.indexOf(idx))
-		if (options.contactSwitch.indexOf(idx) > -1) { domoticz.switchContact(idx,true) } else { domoticz.switch(idx,255) }
+		if ((idx) && (options.contactSwitch.indexOf(idx) > -1)) { domoticz.switchContact(idx,true) } else { domoticz.switch(idx,255) }
 		mqtt.publish('ipcc/' + name + '/AlarmLocal/' + (index+1), 'true');
 	} else if (code === 'AlarmLocal' && action === 'Stop') {		// Alarm Local Stop
 		if (TRACE)	console.log(name + ': Local Alarm Ended (' + (index+1) + ')');
 		var alarm	= 6 + index;
 		var idx		= dahuaIPC[name][alarm];
-		if (options.contactSwitch.indexOf(idx) > -1) { domoticz.switchContact(idx,false) } else { domoticz.switch(idx,0) }
+		if ((idx) && (options.contactSwitch.indexOf(idx) > -1)) { domoticz.switchContact(idx,false) } else { domoticz.switch(idx,0) }
 		mqtt.publish('ipcc/' + name + '/AlarmLocal/' + (index+1), 'false');
 	} else if (code === 'VideoLoss' && action === 'Start') {		// Video Lost
+		var idx = dahuaIPC[name][5]
 		if (TRACE)	console.log(name + ': Video Lost!');
 		domoticz.log('[IPCC] ' + name + ': Video Lost!')
-		domoticz.switch(dahuaIPC[name][5],255)
+		if (idx)	domoticz.switch(idx,255);
 		mqtt.publish('ipcc/' + name + '/VideoLoss', 'true');
 	} else if (code === 'VideoLoss' && action === 'Stop') {			// Video Found
+		var idx = dahuaIPC[name][5]
 		if (TRACE)	console.log(name + ': Video Found');
-		domoticz.switch(dahuaIPC[name][5],0)
+		if (idx)	domoticz.switch(idx,0);
 		mqtt.publish('ipcc/' + name + '/VideoLoss', 'false');
 	} else if (code === 'VideoBlind' && action === 'Start') {		// Video Blind
+		var idx = dahuaIPC[name][5]
 		if (TRACE)	console.log(name + ': Video Blind!');
 		domoticz.log('[IPCC] ' + name + ': Video Blind!')
-		domoticz.switch(dahuaIPC[name][5],255)
+		if (idx)	domoticz.switch(idx,255);
 		mqtt.publish('ipcc/' + name + '/VideoBlind', 'true');
 	} else if (code === 'VideoBlind' && action === 'Stop') {		// Video Unblind
+		var idx = dahuaIPC[name][5]
 		if (TRACE)	console.log(name + ': Video Unblind');
-		domoticz.switch(dahuaIPC[name][5],0)
+		if (idx)	domoticz.switch(idx,0);
 		mqtt.publish('ipcc/' + name + '/VideoBlind', 'false');
 	}
 });
+
+// mqtt: connect
+mqtt.on('connect', function () {
+	// Setup Subscriptions for Dahua Cameras
+	var dahuas = Object.keys(dahuaIPC);
+	dahuas.forEach(function(id){
+		mqtt.subscribe('ipcc/' + id + '/NightProfile');
+		mqtt.subscribe('ipcc/' + id + '/DayProfile');
+		mqtt.subscribe('ipcc/' + id + '/AlarmOutput');
+		mqtt.subscribe('ipcc/' + id + '/GoToPreset');
+	});
+
+});
+
+// mqtt: message
+mqtt.on('message', function (topic, message) {
+	// message is Buffer 
+	console.log(topic + ' : ' + message.toString());
+});
+
 
 // domoticz: connect
 domoticz.on('connect', function() {
