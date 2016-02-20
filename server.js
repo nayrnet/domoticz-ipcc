@@ -77,7 +77,6 @@ dahua.on('alarm', function(name, id, code, action, index) {
 		domoticz.log('[IPCC] ' + name + ': Local Alarm Triggered (' + (index+1) + ')')
 		var alarm	= 6 + index;
 		var idx		= dahuaIPC[name][alarm];
-		console.log(options.contactSwitch.indexOf(idx))
 		if ((idx) && (options.contactSwitch.indexOf(idx) > -1)) { domoticz.switchContact(idx,true) } else { domoticz.switch(idx,255) }
 		mqtt.publish('ipcc/' + name + '/AlarmLocal/' + (index+1), 'true');
 	} else if (code === 'AlarmLocal' && action === 'Stop') {		// Alarm Local Stop
