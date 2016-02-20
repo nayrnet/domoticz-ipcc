@@ -51,27 +51,27 @@ nano config.js
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
 
 ###  IPCC MQTT Publishes
-Raw values are published to the following locations:
+Raw values are published to the following locations, make is either *dahua* or *hik*, CameraName is in config.
 * ipcc/connected
  * true/false - IPCC Presence
-* ipcc/CameraName/VideoMotion 		
+* ipcc/make/CameraName/VideoMotion 		
  * true/false - Video motion Detection
-* ipcc/CameraName/AlarmLocal/id
+* ipcc/make/CameraName/AlarmLocal/id
  * true/false - Local Alarm IO, id is usually 1 or 2
-* ipcc/CameraName/VideoLoss
+* ipcc/make/CameraName/VideoLoss
  * true/false - Video Errors
-* ipcc/CameraName/VideoBlind
+* ipcc/make/CameraName/VideoBlind
  * true/false - Blank Screen
 
 ###  IPCC MQTT Subscriptions
 IPCC is subscribed to the following locations, incoming data will be sent to you camera.
-* ipcc/CameraName/NightProfile
+* ipcc/make/CameraName/NightProfile
  * send true to enable night profile
-* ipcc/CameraName/DayProfile
+* ipcc/make/CameraName/DayProfile
  * send true to enable day profile
-* ipcc/CameraName/AlarmOutput
- * true/false - Local Alarm IO, id is usually 1 or 2
-* ipcc/CameraName/GoToPreset
+* ipcc/make/CameraName/AlarmOutput
+ * true/false - Local Alarm IO
+* ipcc/make/CameraName/GoToPreset
  * interger - PTZ Command go to Preset
 
 

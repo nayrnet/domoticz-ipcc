@@ -116,18 +116,24 @@ mqtt.on('connect', function () {
 	// Setup Subscriptions for Dahua Cameras
 	var dahuas = Object.keys(dahuaIPC);
 	dahuas.forEach(function(id){
-		mqtt.subscribe('ipcc/' + id + '/NightProfile');
-		mqtt.subscribe('ipcc/' + id + '/DayProfile');
-		mqtt.subscribe('ipcc/' + id + '/AlarmOutput');
-		mqtt.subscribe('ipcc/' + id + '/GoToPreset');
+		if (TRACE)	console.log('MQTT subscribed to: ipcc/dahua/' + id + '/'
+		mqtt.subscribe('ipcc/dahua/' + id + '/NightProfile');
+		mqtt.subscribe('ipcc/dahua/' + id + '/DayProfile');
+		mqtt.subscribe('ipcc/dahua/' + id + '/AlarmOutput');
+		mqtt.subscribe('ipcc/dahua/' + id + '/GoToPreset');
 	});
 
 });
 
 // mqtt: message
 mqtt.on('message', function (topic, message) {
-	// message is Buffer 
-	console.log(topic + ' : ' + message.toString());
+	var path = topic.split('/');
+	ven = path[1]
+	cam = path[2]
+	cmd = path[3]
+
+	// Not yet Implemented
+	console.log('MQTT '+ ven + ' ' + cam + ' : ('+ cmd + ') ' + message.toString());
 });
 
 
