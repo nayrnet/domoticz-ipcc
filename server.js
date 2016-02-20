@@ -115,7 +115,7 @@ mqtt.on('connect', function () {
 	// Setup Subscriptions for Dahua Cameras
 	var dahuas = Object.keys(dahuaIPC);
 	dahuas.forEach(function(id){
-		if (TRACE)	console.log('MQTT subscribed to: ipcc/dahua/' + id + '/'
+		if (TRACE)	console.log('MQTT subscribed to: ipcc/dahua/' + id + '/')
 		mqtt.subscribe('ipcc/dahua/' + id + '/NightProfile');
 		mqtt.subscribe('ipcc/dahua/' + id + '/DayProfile');
 		mqtt.subscribe('ipcc/dahua/' + id + '/AlarmOutput');
