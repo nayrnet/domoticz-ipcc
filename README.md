@@ -51,7 +51,7 @@ nano config.js
 > See the ipcc/etc folder for system init scripts and optional syslogd support.
 
 ###  IPCC MQTT Publishes
-Raw values are published to the following locations, make is either *dahua* or *hik*, CameraName is in config.
+Raw values are published to the following locations, make is either **dahua** or **hikvision**, CameraName is in config.
 * ipcc/connected
  * true/false - IPCC Presence
 * ipcc/make/CameraName/VideoMotion 		
